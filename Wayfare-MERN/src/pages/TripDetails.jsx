@@ -5,6 +5,7 @@ import { formatDateRange, travellerLabel } from "../utils/format";
 import { useMoney } from "../lib/money";
 import CurrencyPicker, { RateNote } from "../components/CurrencyPicker";
 import ItineraryEditor from "../components/ItineraryEditor";
+import TripPlan from "../components/TripPlan";
 import TripMap from "../components/TripMap";
 import TripTools from "../components/TripTools";
 import { exportPdf } from "../lib/exports";
@@ -92,6 +93,7 @@ export default function TripDetails() {
         </button>
       </div>
       <RateNote conversion={conversion} base={trip.currency} />
+      <TripPlan trip={trip} conversion={conversion} />
       <ItineraryEditor
         trip={trip}
         newPlace={newPlace}

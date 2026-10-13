@@ -142,6 +142,7 @@ export const activitySchema = z.object({
   id: z.string().min(1).max(80),
   title: z.string().trim().min(1).max(200),
   notes: z.string().max(1000).default(""),
+  kind: z.enum(["visit", "meal", "stay"]).optional(),
   location: location.optional(),
 });
 export const itinerarySchema = z

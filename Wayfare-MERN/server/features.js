@@ -121,7 +121,13 @@ export function accountRoutes(
       lon: Number(req.query.lon),
     });
     const category = z
-      .enum(["tourism", "catering.restaurant", "leisure.park", "entertainment"])
+      .enum([
+        "tourism",
+        "catering.restaurant",
+        "leisure.park",
+        "entertainment",
+        "accommodation.hotel",
+      ])
       .parse(req.query.category || "tourism");
     const data = await geocoder("v2/places", {
       categories: category,

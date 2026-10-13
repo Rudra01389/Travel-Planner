@@ -22,6 +22,8 @@ import {
 } from "../src/lib/validation.js";
 import { getRate, roundMoney, shares, balances } from "./money.js";
 import { accountRoutes, tripFeatures } from "./features.js";
+import { geo } from "./integrations.js";
+import { planTrip } from "./planner.js";
 const revisionFilter = (t) =>
   t.revision === 0
     ? { $or: [{ revision: 0 }, { revision: { $exists: false } }] }
@@ -349,6 +351,18 @@ export function createApp({
     data.location = body.location;
     data.timeZone = body.timeZone;
     data.preferences = body.preferences;
+    // Replace the generic placeholder days with places for the entered
+    // destination (day-wise stops, meals, a hotel) and recommendation lists.
+    const plan = await planTrip({
+      body,
+      geocoder: geocoder || geo,
+      logger,
+    });
+    if (plan) {
+      data.days = plan.days;
+      data.location = body.location || plan.location;
+      data.recommendations = plan.recommendations;
+    }
     data.packing = [
       "Passport / ID",
       "Tickets and reservations",

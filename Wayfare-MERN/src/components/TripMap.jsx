@@ -126,6 +126,7 @@ export default function TripMap({ trip, onAdd }) {
             <option value="catering.restaurant">Restaurants</option>
             <option value="leisure.park">Parks</option>
             <option value="entertainment">Entertainment</option>
+            <option value="accommodation.hotel">Hotels</option>
           </select>
         </label>
         {trip.days.map((d) => (
